@@ -1,7 +1,6 @@
 #!/home/esgeriath/.local/state/python.venv/bin/python3
 #!/usr/bin/env python3
 
-import sys
 import json
 import requests
 from requests.auth import HTTPBasicAuth
@@ -16,17 +15,15 @@ BASE_URL = "https://remarkable:2001"  # HTTPS is required
 EVENTS_URL = f"{BASE_URL}/events"
 GESTURES_URL = f"{BASE_URL}/gestures"
 
-# THR = 1
 # maximal outputs from goMarkableStream API on my device
 MAX_X = 20966
 MAX_Y = 15725
 
 class Pen:
-    yy = 0
     def __init__(self, width=1920, height=1080, x_top=0, y_top=0, fill=True):
         self.x_top = x_top
         self.y_top = y_top
-        if not (fill ^ ((width / MAX_X) <= (height / MAX_Y))):
+        if not fill ^ ((width / MAX_X) <= (height / MAX_Y)):
             self.scale = height / MAX_Y
         else:
             self.scale = width / MAX_X
@@ -119,22 +116,5 @@ def read_pen_events(m):
         return
 
 
-def main():
-    print(f"Usage: {sys.argv[0]} [width height [x_shift y_shift]]")
-    if len(sys.argv) > 2:
-        width = int(sys.argv[1])
-        height = int(sys.argv[2])
-        print(f"{width = }, {height = }")
-    else:
-        read_pen_events(Pen())
-        return
-    if len(sys.argv) > 4:
-        x_top = int(sys.argv[3])
-        y_top = int(sys.argv[4])
-        print(f"{x_top = }, {y_top = }")
-        read_pen_events(Pen(width, height, x_top, y_top))
-        return
-    read_pen_events(Pen(width, height))
-
 if __name__ == "__main__":
-    main()
+    read_pen_events(Pen())
