@@ -1,5 +1,5 @@
-#!/home/esgeriath/.local/state/python.venv/bin/python3
-#!/usr/bin/env python3
+#!/home/esgeriath/.local/state/python.venv/bin/python
+#!/usr/bin/env python
 
 import json
 import requests
